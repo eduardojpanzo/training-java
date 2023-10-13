@@ -55,11 +55,18 @@ public class TaskController {
   public ResponseEntity update(@RequestBody TaskModel taskModel, HttpServletRequest request, @PathVariable UUID id){
       var task = this.taskRepository.findById(id).orElse(null);
 
+      if (task == null) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Tarefa não encotrada");
+      }
+      var idUser = request.getAttribute("idUser");
+
+      if (!task.getIdUser().equals(idUser)) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Sem permissão para alterar");
+      }
+
       Utils.copyNonNullProperties(taskModel, task);
+      var taskupdated = this.taskRepository.save(task);
 
-      
-      var taskupdate = this.taskRepository.save(task);
-
-      return ResponseEntity.status(HttpStatus.OK).body(taskupdate);
+      return ResponseEntity.status(HttpStatus.OK).body(taskupdated);
   }
 }
