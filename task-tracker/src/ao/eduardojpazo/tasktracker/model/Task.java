@@ -59,11 +59,11 @@ public class Task {
 
   public String toJson() {
       return "{"+
-         "\"id\":\"" + id + "\","+
-         "\"description\":\"" + description.strip() + "\","+
-         "\"status\":\"" + status.toString() +"\","+
-         "\"createdAt\":\"" + createdAt.format(formatter) +"\","+
-         "\"updatedAt\":\"" + updatedAt.format(formatter) +"\""+
+         "\"id\":\"" + this.id + "\","+
+         "\"description\":\"" + this.description.strip() + "\","+
+         "\"status\":\"" + this.status.toString() +"\","+
+         "\"createdAt\":\"" + this.createdAt.format(formatter) +"\","+
+         "\"updatedAt\":\"" + this.updatedAt.format(formatter) +"\""+
       "}";
    }
 
@@ -76,7 +76,6 @@ public class Task {
       String statusString = json1[2].split(":")[1].strip();
       String createdAtStr = json1[3].split("[a-z]:")[1].strip();
       String updatedAtStr = json1[4].split("[a-z]:")[1].strip();
-
       Status status = Status.valueOf(statusString.toUpperCase().replace(" ", "_"));
 
       Task task = new Task(description);

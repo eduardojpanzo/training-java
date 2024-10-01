@@ -10,7 +10,7 @@ import java.util.Optional;
 import ao.eduardojpazo.tasktracker.model.Task;
 
 public class TaskManager {
-   private final Path FILE_PATH = Path.of("tasks.json");
+    private final Path FILE_PATH = Path.of("tasks.json");
     private List<Task> tasks;
 
 
@@ -18,20 +18,20 @@ public class TaskManager {
         this.tasks = loadTasks();
     }
 
-    /* read tasks.json file */
+    /* load json file */
     private List<Task> loadTasks(){
         List<Task> stored_tasks = new ArrayList<>();
-
         if (!Files.exists(FILE_PATH)){
             return new ArrayList<>();
         }
 
         try {
-            String jsonContent = Files.readString(FILE_PATH);
-            String[] taskList = jsonContent.replace("[", "")
-                                            .replace("]", "")
-                                            .split("},");
-            for (String taskJson : taskList){
+            var jsonContent = Files.readString(FILE_PATH);
+            String[] taskList = jsonContent.replace("[", "").replace("]", "").split("},");
+            
+            for (String task : taskList){
+                String taskJson =  task.trim();
+
                 if (!taskJson.endsWith("}")){
                     taskJson = taskJson + "}";
                     stored_tasks.add(Task.fromJson(taskJson));
@@ -39,6 +39,7 @@ public class TaskManager {
                     stored_tasks.add(Task.fromJson(taskJson));
                 }
             }
+
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -46,17 +47,18 @@ public class TaskManager {
     }
 
     public void saveTasks(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("[\n");
+        StringBuilder strBuilder = new StringBuilder();
+        strBuilder.append("[\n");
+
         for (int i = 0; i < tasks.size(); i++){
-            sb.append(tasks.get(i).toJson());
+            strBuilder.append(tasks.get(i).toJson());
             if (i < tasks.size() - 1){
-                sb.append(",\n");
+                strBuilder.append(",\n");
             }
         }
-        sb.append("\n]");
+        strBuilder.append("\n]");
+        String jsonContent = strBuilder.toString();
 
-        String jsonContent = sb.toString();
         try {
             Files.writeString(FILE_PATH, jsonContent);
         } catch (IOException e){
@@ -65,14 +67,14 @@ public class TaskManager {
     }
 
     public void addTask(String description){
-        Task new_task = new Task(description);
-        tasks.add(new_task);
-        System.out.println("Task added successfully (ID: " + new_task.getId() + ")");
+        Task newTask = new Task(description);
+        tasks.add(newTask);
+        System.out.println("Task added successfully (ID: " + newTask.getId() + ")");
     }
 
-    public void updateTask(String id, String new_description){
+    public void updateTask(String id, String newDescription){
         Task task = findTask(id).orElseThrow(() -> new IllegalArgumentException("Task with ID " + id + " not found!"));
-        task.setDescription(new_description);
+        task.setDescription(newDescription);
     }
 
     public void deleteTask(String id){
