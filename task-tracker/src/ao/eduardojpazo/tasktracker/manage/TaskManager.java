@@ -75,21 +75,25 @@ public class TaskManager {
     public void updateTask(String id, String newDescription){
         Task task = findTask(id).orElseThrow(() -> new IllegalArgumentException("Task with ID " + id + " not found!"));
         task.setDescription(newDescription);
+        System.out.println("Task updated successfully (ID: " + task.getId() + ")");
     }
 
     public void deleteTask(String id){
         Task task = findTask(id).orElseThrow(() -> new IllegalArgumentException("Task with ID " + id + " not found!"));
         tasks.remove(task);
+        System.out.println("Task deleted successfully (ID: " + task.getId() + ")");
     }
 
     public void markInProgress(String id){
         Task task = findTask(id).orElseThrow(() -> new IllegalArgumentException("Task with ID " + id + " not found!"));
         task.markInProgress();
+        System.out.println("Task marked as inprogress (ID: " + task.getId() + ")");
     }
 
     public void markDone(String id){
         Task task = findTask(id).orElseThrow(() -> new IllegalArgumentException("Task with ID " + id + " not found!"));
         task.markDone();
+        System.out.println("Task marked as done (ID: " + task.getId() + ")");
     }
 
     public void listTasks(String type){
