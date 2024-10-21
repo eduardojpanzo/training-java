@@ -6,15 +6,31 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+
+@Entity
+@Table(name = "books")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Book {
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private Long bookId;
+
    private String id;
    private String selfLink;
    private String description; 
    private String title;
 
+   @Transient
    private List<Author> authors;
 
+   @Transient
    @JsonAlias("volumeInfo")
    private VolumeInfo volumeInfo;
 
