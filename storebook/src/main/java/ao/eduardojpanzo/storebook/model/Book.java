@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -39,7 +40,7 @@ public class Book {
    public Book (Book bookData) {
       id = bookData.getId();  
       selfLink = bookData.getSelfLink();  
-      description = bookData.getVolumeInfo().getDescription();  
+      description = bookData.getVolumeInfo().getDescription().substring(0, 255);  
       title = bookData.getVolumeInfo().getTitle();  
       authors = bookData.getVolumeInfo().getAuthors().stream().map(a-> new Author(a)).collect(Collectors.toList());
    }
@@ -97,10 +98,5 @@ public class Book {
       return "Book [id=" + id + ", selfLink=" + selfLink + ", description=" + description + ", title=" + title
             + ", authors=" + authors + "] \n";
    }
-
-  
-
-   
-
    
 }

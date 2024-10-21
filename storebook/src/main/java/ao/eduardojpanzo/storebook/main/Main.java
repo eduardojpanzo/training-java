@@ -35,10 +35,7 @@ public class Main {
       try {
          var jsonResult = rApi.searchFromGoogleAPI(query);
          ResultData resultData = cToClass.getData(jsonResult, ResultData.class);
-         resultData.items().stream().forEach(b-> {
-            var newBook = new Book(b);
-            books.add(newBook);
-         });         
+         resultData.items().stream().forEach(b->books.add(b));         
       } catch (Exception e) {
          System.out.println(e);
       }
@@ -47,7 +44,7 @@ public class Main {
    public void chooseBookId(){
       System.out.println("--------------LIVROS ENCOTRADOS--------------");
       books.stream()
-         .forEach(b-> System.out.println("ID: "+b.getId()+" Titulo: "+ b.getTitle()));
+         .forEach(b-> System.out.println("ID: "+b.getId()+" Titulo: "+ b.getVolumeInfo().getTitle()));
       System.out.println("Digite Id de um lovro para guardar na App");
       var bookId = read.nextLine();
       storeBook(bookId);
@@ -58,7 +55,7 @@ public class Main {
       .filter(e->e.getId().toUpperCase().equals(id.toUpperCase())).findFirst();
 
       if (book.isPresent()) {
-        
+        repository.save(new Book(book.get()));
          return;
       }
 
