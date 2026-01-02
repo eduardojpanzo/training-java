@@ -6,9 +6,12 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 public class RequestAPI {
-   final String APIKEY = "AIzaSyAWuJEe8cDnj1GeYFx93Ct6BFAU9t00Jz0";
-   
+   Dotenv dotenv = Dotenv.load();
+   final String apiKey = dotenv.get("APIKEY");
+
    public String getJsonData(String url) throws IOException, InterruptedException{
       HttpClient client = HttpClient.newHttpClient();
       HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
@@ -18,7 +21,7 @@ public class RequestAPI {
    }
 
    public String searchFromGoogleAPI (String query) throws IOException, InterruptedException{
-      String url = "https://www.googleapis.com/books/v1/volumes?q="+query+"&key="+APIKEY;
+      String url = "https://www.googleapis.com/books/v1/volumes?q="+query+"&key="+apiKey;
       return getJsonData(url);
    }
 }

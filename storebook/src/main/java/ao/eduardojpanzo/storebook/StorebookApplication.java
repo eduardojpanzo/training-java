@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import ao.eduardojpanzo.storebook.main.Main;
 import ao.eduardojpanzo.storebook.repository.BookRepository;
+import io.github.cdimascio.dotenv.Dotenv;
 
 @SpringBootApplication
 public class StorebookApplication  implements CommandLineRunner{
@@ -14,6 +15,11 @@ public class StorebookApplication  implements CommandLineRunner{
 	private BookRepository repository;
 
 	public static void main(String[] args) {
+		Dotenv dotenv = Dotenv.load();
+    	dotenv.entries().forEach(e ->
+        	System.setProperty(e.getKey(), e.getValue())
+    	);
+
 		SpringApplication.run(StorebookApplication.class, args);
 	}
 
