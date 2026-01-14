@@ -1,3 +1,70 @@
-bin
-
+# =====================================
+#         Meus Ficheiros Git Ignore
+# =====================================
 ideas.png
+
+
+# =====================================
+#         JAVA (compilados e builds)
+# =====================================
+**/bin/
+**/target/
+**/out/
+**/build/
+**/*.class
+
+# =====================================
+#         VS Code (o teu caso principal)
+# =====================================
+**/.vscode/
+
+# =====================================
+#         Outros IDEs comuns (por precaução)
+# =====================================
+**/.idea/               # IntelliJ IDEA
+**/*.iml
+**/*.ipr
+**/*.iws
+
+**/.project             # Eclipse
+**/.classpath
+**/.settings/
+
+**/nbproject/private/   # NetBeans
+**/nbbuild/
+**/dist/
+**/.nb-gradle/
+
+# =====================================
+#         Ficheiros do sistema operativo
+# =====================================
+**/.DS_Store            # macOS
+**/Thumbs.db            # Windows
+**/*.log
+**/*~
+**/*.bak
+**/*.tmp
+**/*.old
+**/*.backup
+
+# =====================================
+#         Pastas pessoais/experimentos
+#         (muito útil em pastas de treino)
+# =====================================
+**/temp/
+**/teste/
+**/testes/
+**/experimentos/
+**/backup/
+**/old/
+**/lixo/
+
+# =====================================
+#         Outros comuns em Java
+# =====================================
+**/*.jar                # só se não estiver dentro de target/
+**/*.war
+**/*.ear
+**/.mvn/                # Maven wrapper temporário
+**/HELP.md              # às vezes aparece
+**/dependency-reduced-pom.xml
