@@ -2,7 +2,7 @@ spring:
   application:
     name: user-management
   datasource:
-    url: jdbc:postgresql://localhost:5432/user_management
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/user_management}
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
